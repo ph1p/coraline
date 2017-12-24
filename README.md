@@ -8,16 +8,13 @@ This small cli makes it easier to handle conventional git commit messages.
 
 ## How to use?
 
-Just type `cl` in your terminal and follow the first configuration.
+Just type `cl` or `coraline` in your terminal and follow the first configuration.
 
 For help, just type `cli --help`
 
 ```
-Usage
-    $ cl --reset
-    $ cl --default
-    $ cl --readme
-    $ cl --list
+Usage (cl or coraline)
+    $ coraline --readme
 
 Options
     --help
