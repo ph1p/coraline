@@ -1,0 +1,31 @@
+{
+  "name": "coraline",
+  "version": "1.0.0",
+  "description": "A simple cli for conventional git commit messages",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ph1p/coraline.git"
+  },
+  "bin": {
+    "ci": "./cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "commit",
+    "git",
+    "cli"
+  ],
+  "author": "Philip Stapelfeldt <phil@capshake.com>",
+  "license": "MIT",
+  "dependencies": {
+    "boxen": "^1.3.0",
+    "chalk": "^2.3.0",
+    "dugite": "^1.53.0",
+    "inquirer": "^4.0.1",
+    "meow": "^4.0.0",
+    "nconf": "^0.10.0"
+  }
+}
