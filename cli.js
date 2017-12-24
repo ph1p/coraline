@@ -119,7 +119,7 @@ ${chalk.bold(texts.welcome)}`);
 // show all available styles
 if (cli.flags.list) {
   if (customStyle) {
-    console.log(texts.allCustomStyles.replace('%s', chalk.bold('.commit')));
+    console.log(texts.allCustomStyles.replace('%s', chalk.bold('.coraline')));
     showAllReadmes(customStyle);
   }
 
