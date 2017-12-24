@@ -8,16 +8,16 @@ This small cli makes it easier to handle conventional git commit messages.
 
 ## How to use?
 
-Just type `ci` in your terminal and follow the first configuration.
+Just type `cl` in your terminal and follow the first configuration.
 
-For help, just type `ci --help`
+For help, just type `cli --help`
 
 ```
 Usage
-    $ ci --reset
-    $ ci --default
-    $ ci --readme
-    $ ci --list
+    $ cl --reset
+    $ cl --default
+    $ cl --readme
+    $ cl --list
 
 Options
     --help
@@ -28,10 +28,10 @@ Options
     --version, -v Version info
 ```
 
-## .commit.js
+## .coraline.js
 
 Define a custom commit style for every repository with a simple
-dotfile called `.commit.js`
+dotfile called `.coraline.js`
 
 **questions** and **template** properties are not optional.
 **questions** is an easy configurable array of inquirer objects. (https://www.npmjs.com/package/inquirer)

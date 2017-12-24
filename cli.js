@@ -40,10 +40,10 @@ const texts = {
 const cli = meow(
   `
       Usage
-        $ ci --reset
-        $ ci --default
-        $ ci --readme
-        $ ci --list
+        $ cl --reset
+        $ cl --default
+        $ cl --readme
+        $ cl --list
 
       Options
         --help
@@ -83,7 +83,7 @@ let customStyle = null;
 if (!cli.flags.default) {
   try {
     const fs = require('fs');
-    const configFile = require(path.resolve(pathToRepository, '.commit'));
+    const configFile = require(path.resolve(pathToRepository, '.coraline'));
 
     if (configFile) {
       customStyle = {};
