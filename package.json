@@ -1,6 +1,6 @@
 {
   "name": "coraline",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "A simple cli for conventional git commit messages",
   "main": "index.js",
   "repository": {
@@ -12,7 +12,8 @@
     "coraline": "./dist/cli.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "rollup -c"
   },
   "keywords": [
     "commit",
