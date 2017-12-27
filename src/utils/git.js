@@ -14,7 +14,7 @@ const GIT_STATUS = {
  * Parse git status string
  * @param {string} status
  */
-exports.parseGitStatus = status => {
+export function parseGitStatus(status) {
   const files = status.split('\n');
   const statusObj = [];
   files.forEach(file => {

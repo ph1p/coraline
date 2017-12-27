@@ -1,16 +1,16 @@
-#!/usr/bin/env node
-const inquirer = require('inquirer');
-const chalk = require('chalk');
-const path = require('path');
-const meow = require('meow');
-const nconf = require('nconf');
-const boxen = require('boxen');
+import inquirer from 'inquirer';
+import chalk from 'chalk';
+import path from 'path';
+import meow from 'meow';
+import nconf from 'nconf';
+import boxen from 'boxen';
 
-const pkg = require('./package');
-const commitStyles = require('./styles');
-const { parseTemplate, parseGitStatus, parseStyleObject } = require('./utils');
+import commitStyles from './styles/index';
+import utils from './utils/index';
 
-const { GitProcess, GitError, IGitResult } = require('dugite');
+import { GitProcess, GitError, IGitResult } from 'dugite';
+
+const { parseStyle, parseTemplate, parseGitStatus } = utils;
 
 // get current path
 const pathToRepository = process.cwd();
@@ -25,10 +25,10 @@ const texts = {
   Sorry, but "${chalk.bold(pathToRepository)}" isn't a git repository
   `,
   nothingToDo: chalk.green(`
-  nothing to commit :)
+  nothing to commit.
 `),
   finished: chalk.green(`
-  DONE! :)
+  all done.
 `),
   allCustomStyles: `
   | All custom styles from %s file`,
@@ -133,7 +133,7 @@ if (cli.flags.list) {
  */
 const startCommiting = async (flags = {}) => {
   // load local config
-  nconf.use('file', { file: path.resolve(__dirname, 'config.json') });
+  nconf.use('file', { file: path.resolve(__dirname, '../config.json') });
   nconf.load();
 
   const gitStatusResult = await GitProcess.exec(
