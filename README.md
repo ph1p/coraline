@@ -2,6 +2,11 @@
 
 This small cli makes it easier to handle conventional git commit messages.
 
+Currently there are two preinstalled commit conventions:
+
+- karma
+- atom
+
 ## Install
 
 `npm i coraline -g`
