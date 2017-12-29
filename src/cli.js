@@ -8,7 +8,7 @@ import boxen from 'boxen';
 import commitStyles from './styles/index';
 import utils from './utils/index';
 
-import { GitProcess, GitError, IGitResult } from 'dugite';
+import { exec } from 'child-process-promise';
 
 const { parseStyle, parseTemplate, parseGitStatus } = utils;
 
@@ -88,7 +88,7 @@ if (!cli.flags.default) {
     if (configFile) {
       customStyle = {};
       Object.keys(configFile).forEach(key => {
-        customStyle[key] = parseStyleObject(configFile[key]);
+        customStyle[key] = parseStyle(configFile[key]);
       });
     }
   } catch (e) {
@@ -136,13 +136,9 @@ const startCommiting = async (flags = {}) => {
   nconf.use('file', { file: path.resolve(__dirname, '../config.json') });
   nconf.load();
 
-  const gitStatusResult = await GitProcess.exec(
-    ['status', '--porcelain'],
-    pathToRepository
-  );
+  try {
+    const gitStatusResult = await exec('git status --porcelain');
 
-  // if there is no statis error
-  if (gitStatusResult.exitCode === 0) {
     // reset config
     if (flags.reset) {
       nconf.reset('config:commitstyle');
@@ -205,10 +201,6 @@ const startCommiting = async (flags = {}) => {
                 return;
               }
 
-              console.log(
-                texts.nowUsing.replace('%s', chalk.green(commitstyle))
-              );
-
               startCommiting();
             });
           }
@@ -228,6 +220,7 @@ const startCommiting = async (flags = {}) => {
         let customStyleAnswers = {};
         if (customStyle) {
           if (Object.keys(customStyle).length > 1) {
+            console.log('');
             customStyleAnswers = await inquirer.prompt([
               {
                 type: 'list',
@@ -285,9 +278,8 @@ const startCommiting = async (flags = {}) => {
         console.log(texts.finished);
       }
     }
-  } else {
-    const error = gitStatusResult.stderr;
-    // error handling
+  } catch (e) {
+    //show message, if this is not a git repo
     console.log(chalk.red(texts.notAGitRepo));
   }
 };
