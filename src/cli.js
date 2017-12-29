@@ -267,13 +267,10 @@ const startCommiting = async (flags = {}) => {
         const answers = await inquirer.prompt(questions);
 
         // add all
-        await GitProcess.exec(['add', '--all'], pathToRepository);
+        await exec('git add --all');
 
         // commit with template
-        await GitProcess.exec(
-          ['commit', '-m', parseTemplate(template, answers)],
-          pathToRepository
-        );
+        await exec(`git commit -m "${parseTemplate(template, answers)}"`);
 
         console.log(texts.finished);
       }
