@@ -18,9 +18,12 @@ const pathToRepository = process.cwd();
 // All cli texts
 const texts = {
   welcome: '  | Coraline',
-  chooseDefaultStyle: 'Choose your commit style:',
+  chooseDefaultStyle: 'Choose your default commit style:',
   areYouSure: 'Are you sure (just hit enter for YES)?',
   nowUsing: '  | Now you are using %s',
+  commitStyleNotExists: `
+  💥 Sorry, but this commit style does not exist.
+  `,
   notAGitRepo: `
   Sorry, but "${chalk.bold(pathToRepository)}" isn't a git repository
   `,
@@ -44,14 +47,16 @@ const cli = meow(
         $ cl --default
         $ cl --readme
         $ cl --list
+        $ cl --style
 
       Options
         --help
         --reset, -r  Reset configuration
         --default, -d  Use default style
-        --readme, -m Show the readme of current commit style
-        --list, -l List all available styles
-        --version, -v Version info`,
+        --readme, -m  Show the readme of current commit style
+        --list, -l List  all available styles
+        --version, -v  Version info
+        --style, -s  Set style (e. g. cl -s karma`,
   {
     flags: {
       reset: {
@@ -73,6 +78,10 @@ const cli = meow(
       version: {
         type: 'boolean',
         alias: 'v'
+      },
+      style: {
+        type: 'string',
+        alias: 's'
       }
     }
   }
@@ -146,6 +155,16 @@ const startCommiting = async (flags = {}) => {
 
     // get config object
     const config = nconf.get('config');
+
+    // overwrite style temporarily
+    if (flags.style && flags.style !== '') {
+      if (Object.keys(commitStyles).some(key => key === flags.style)) {
+        config.commitstyle = flags.style;
+      } else {
+        console.log(chalk.red(texts.commitStyleNotExists));
+        return;
+      }
+    }
 
     // no config
     if (!config) {
