@@ -20,6 +20,7 @@
     "git",
     "cli"
   ],
+  "preferGlobal": "true",
   "author": "Philip Stapelfeldt <phil@capshake.com>",
   "license": "MIT",
   "dependencies": {

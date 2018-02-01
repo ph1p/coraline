@@ -1,5 +1,7 @@
 ## coraline
 
+[![npm](https://img.shields.io/npm/v/coraline.svg)](https://www.npmjs.com/package/coraline)
+
 This small cli makes it easier to handle conventional git commit messages.
 
 Currently there are two preinstalled commit conventions:
@@ -33,14 +35,15 @@ Options
 ## .coraline.js
 
 Define a custom commit style for every repository with a simple
-dotfile called `.coraline.js`
+dotfile called `.coraline.js` or  `.coraline`
 
 **questions** and **template** properties are not optional.
-**questions** is an easy configurable array of inquirer objects. (https://www.npmjs.com/package/inquirer)
+The **questions** array includes one or many easy configurable inquirer objects. (https://www.npmjs.com/package/inquirer)
 
 With **template** you define the commit message format.
 For example: `<title>` will be replaced with the value of `name: 'title'`.
 
+The **readme** object contains a small explanation of how your defined convention works.
 
 ```
 module.exports = {
