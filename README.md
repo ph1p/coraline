@@ -8,6 +8,7 @@ Currently there are two preinstalled commit conventions:
 
 - karma
 - atom
+- angular
 
 ## Install
 
