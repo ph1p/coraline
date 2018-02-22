@@ -20,7 +20,7 @@ Just type `cl` or `coraline` in your terminal and follow the first configuration
 
 For help, just type `cli --help`
 
-```
+```bash
 Usage (cl or coraline)
     $ coraline --readme
 
@@ -46,7 +46,7 @@ For example: `<title>` will be replaced with the value of `name: 'title'`.
 
 The **readme** object contains a small explanation of how your defined convention works.
 
-```
+```javascript
 module.exports = {
     custom: {
         questions: [{
