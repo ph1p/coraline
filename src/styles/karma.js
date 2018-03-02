@@ -29,7 +29,7 @@ export default {
     },
     {
       prefix: '-',
-      type: 'input',
+      type: 'editor',
       name: 'body',
       message: 'Body:'
     },

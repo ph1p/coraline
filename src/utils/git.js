@@ -21,8 +21,8 @@ export function parseGitStatus(status) {
     if (file.length) {
       const x = file[0];
       const fileStatus = {
-        status_from: GIT_STATUS[x],
-        status_to: GIT_STATUS[file[1]],
+        statusFrom: GIT_STATUS[x],
+        statusTo: GIT_STATUS[file[1]],
         to: file.substring(3),
         from: null
       };

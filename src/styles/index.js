@@ -1,13 +1,13 @@
-import atom from './atom';
-import karma from './karma';
-import angular from './angular';
+import atomStyle from './atom';
+import karmaStyle from './karma';
+import angularStyle from './angular';
 
 import utils from '../utils/index';
 
-const { parseStyle } = utils;
 
-export default {
-  atom: parseStyle(atom),
-  karma: parseStyle(karma),
-  angular: parseStyle(angular)
+const styles = {
+  atom: utils.parseStyle(atomStyle),
+  karma: utils.parseStyle(karmaStyle),
+  angular: utils.parseStyle(angularStyle)
 };
+export default styles;
