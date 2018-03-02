@@ -21,16 +21,21 @@ Just type `cl` or `coraline` in your terminal and follow the first configuration
 For help, just type `cli --help`
 
 ```bash
-Usage (cl or coraline)
-    $ coraline --readme
+Usage
+    $ cl --reset
+    $ cl --default
+    $ cl --readme
+    $ cl --list
+    $ cl --use
 
 Options
     --help
     --reset, -r  Reset configuration
-    --default, -d  Use default style
-    --readme, -m Show the readme of current commit style
-    --list, -l List all available styles
-    --version, -v Version info
+    --default, -d  Use your default style (Only relevant if you use a .coraline file)
+    --readme {name}, -m {name}  Shows the readme of current or inputed commit style
+    --list, -l List  all available styles
+    --version, -v  Version info
+    --use, -u  Use a specific style temporarily (e. g. cl -u karma
 ```
 
 ## .coraline.js
@@ -57,7 +62,7 @@ module.exports = {
                 return title.length > 0;
             }
         }, {
-            type: 'input',
+            type: 'editor', // opens your favorite cli editor
             name: 'message',
             message: 'Message'
         }],
