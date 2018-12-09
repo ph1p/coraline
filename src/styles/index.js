@@ -4,7 +4,6 @@ import angularStyle from './angular';
 
 import utils from '../utils/index';
 
-
 const styles = {
   atom: utils.parseStyle(atomStyle),
   karma: utils.parseStyle(karmaStyle),

@@ -1,15 +1,16 @@
+import 'regenerator-runtime/runtime';
 import inquirer from 'inquirer';
 import chalk from 'chalk';
 import path from 'path';
 import meow from 'meow';
 import nconf from 'nconf';
 import boxen from 'boxen';
+import { exec } from 'child-process-promise';
+
 const pkg = require('../package.json');
 
 import commitStyles from './styles/index';
 import utils from './utils/index';
-
-import { exec } from 'child-process-promise';
 
 // get current path
 const pathToRepository = process.cwd();
@@ -356,12 +357,13 @@ const startCommiting = async (flags = {}) => {
           console.log('  ---------');
           status.forEach(({ statusFrom, statusTo, to, from }) => {
             if (statusFrom === statusTo) {
-              console.log(`  | ${setColor(statusTo)} ${from || ''} ${to || ''}`);
+              console.log(
+                `  | ${setColor(statusTo)} ${from || ''} ${to || ''}`
+              );
             } else {
               console.log(
-                `  | ${setColor(statusFrom)} -> ${setColor(
-                  statusTo
-                )} ${from || ''} ${to || ''}`
+                `  | ${setColor(statusFrom)} -> ${setColor(statusTo)} ${from ||
+                  ''} ${to || ''}`
               );
             }
           });
