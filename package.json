@@ -23,13 +23,13 @@
   "author": "Philip Stapelfeldt <phil@capshake.com>",
   "license": "MIT",
   "dependencies": {
+    "@babel/polyfill": "^7.0.0",
     "boxen": "^2.0.0",
     "chalk": "^2.4.1",
     "child-process-promise": "^2.2.1",
     "inquirer": "^6.2.1",
     "meow": "^5.0.0",
-    "nconf": "^0.10.0",
-    "regenerator-runtime": "^0.13.1"
+    "nconf": "^0.10.0"
   },
   "devDependencies": {
     "@babel/core": "^7.2.0",

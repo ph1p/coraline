@@ -1,4 +1,4 @@
-import 'regenerator-runtime/runtime';
+import '@babel/polyfill';
 import inquirer from 'inquirer';
 import chalk from 'chalk';
 import path from 'path';
