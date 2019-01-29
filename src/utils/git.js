@@ -14,21 +14,26 @@ const GIT_STATUS = {
  * Parse git status string
  * @param {string} status
  */
-export function parseGitStatus(status) {
+exports.parseGitStatus = status => {
   const files = status.split('\n');
   const statusObj = [];
+
   files.forEach(file => {
     if (file.length) {
-      const x = file[0];
+      const [fl, sl] = file;
       const fileStatus = {
-        statusFrom: GIT_STATUS[x],
-        statusTo: GIT_STATUS[file[1]],
+        statusTo: fl === ' ' ? GIT_STATUS[sl] : GIT_STATUS[fl],
+        added: fl !== ' ',
         to: file.substring(3),
         from: null
       };
-      if (x === 'R') {
-        i++;
-        fileStatus.from = files[i];
+
+      if (fl === 'R' || sl === 'R') {
+        const [from, to] = file.substring(3).split(' -> ');
+
+        fileStatus.added = true;
+        fileStatus.from = from;
+        fileStatus.to = to;
       }
       statusObj.push(fileStatus);
     }

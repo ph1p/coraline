@@ -1,13 +1,22 @@
-import chalk from 'chalk';
+const chalk = require('chalk');
 
-export default {
+module.exports = {
   questions: [
     {
       prefix: '-',
       type: 'list',
       name: 'type',
       message: 'Type:',
-      choices: ['feat', 'fix', 'docs', 'style', 'refactor', 'perf', 'test', 'chore']
+      choices: [
+        'feat',
+        'fix',
+        'docs',
+        'style',
+        'refactor',
+        'perf',
+        'test',
+        'chore'
+      ]
     },
     {
       prefix: '-',

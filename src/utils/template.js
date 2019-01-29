@@ -1,11 +1,11 @@
-import chalk from 'chalk';
+const chalk = require('chalk');
 
 /**
  * Parse commit template
  * @param {string} template
  * @param {object} data
  */
-export function parseTemplate(template, data) {
+exports.parseTemplate = (template, data) => {
   return template
     .replace(/<(.*?)>/g, (found, key) => {
       return data[key] ? data[key] : '';
@@ -17,7 +17,7 @@ export function parseTemplate(template, data) {
  * Parse style object and throw error
  * @param {object} style
  */
-export function parseStyle(style) {
+exports.parseStyle = (style) => {
   if (style.template && style.questions && style.questions.length) {
     style.readme = `${chalk.bold(chalk.underline('Format:'))}
 ${style.template}

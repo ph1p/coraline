@@ -1,54 +1,26 @@
-import '@babel/polyfill';
-import inquirer from 'inquirer';
-import chalk from 'chalk';
-import path from 'path';
-import meow from 'meow';
-import nconf from 'nconf';
-import boxen from 'boxen';
-import { exec } from 'child-process-promise';
+const inquirer = require('inquirer');
+const chalk = require('chalk');
+const path = require('path');
+const meow = require('meow');
+const nconf = require('nconf');
+const boxen = require('boxen');
+const { exec } = require('child-process-promise');
+const { en } = require('./locales');
 
 const pkg = require('../package.json');
 
-import commitStyles from './styles/index';
-import utils from './utils/index';
+const commitStyles = require('./styles');
+const utils = require('./utils');
 
 // get current path
 const pathToRepository = process.cwd();
 
-// All cli texts
-const texts = {
-  welcome: `  | Coraline v${pkg.version}`,
-  chooseDefaultStyle: 'Choose your default commit style:',
-  areYouSure: 'Are you sure (just hit enter for YES)?',
-  nowUsing: '  | Now you are using %s',
-  setupText: `  | Hi I'm coraline. A small cli that helps you to follow commit conventions strict and easily!
-  | Please setup your favorite commit style or write your own :)
-  `,
-  readyToStart: `  | Now we're ready to start! Type ${chalk.bold(
-    'cl'
-  )} or ${chalk.bold('coraline')} to call me.
-  `,
-  commitStyleNotExists: `
-  💥 Sorry, but this commit style does not exist.
-  `,
-  notAGitRepo: `
-  Sorry, but "${chalk.bold(pathToRepository)}" isn't a git repository
-  `,
-  nothingToDo: chalk.green(`
-  nothing to commit.
-`),
-  finished: chalk.green(`
-  all done.
-`),
-  notCommitted: chalk.green(`
-  You're changes has not been committed
-  `),
-  doYouWantCommit: 'Do you want to commit these changes?',
-  allCustomStyles: `
-  | Custom styles from %s file`,
-  includedStyles: `
-  | Included styles`
-};
+// setup texts
+const texts = en({
+  version: pkg.version,
+  pathToRepository,
+  chalk
+});
 
 // CLI args
 const cli = meow({
@@ -338,35 +310,42 @@ const startCommiting = async (flags = {}) => {
           // git status
           const status = utils.parseGitStatus(gitStatusResult.stdout);
 
-          const setColor = status => {
-            const modifierColor = {
-              unmodified: 'grey',
-              untracked: 'magenta',
-              ignored: 'grey',
-              modified: 'blue',
-              added: 'green',
-              deleted: 'red',
-              renamed: false,
-              copied: 'yellow',
-              umerge: false
-            }[status];
+          const notDeletedFiles = status.filter(
+            ({ to, statusTo }) => to && statusTo !== 'deleted'
+          );
 
-            return modifierColor ? chalk[modifierColor](status) : status;
-          };
-
-          console.log('  ---------');
-          status.forEach(({ statusFrom, statusTo, to, from }) => {
-            if (statusFrom === statusTo) {
-              console.log(
-                `  | ${setColor(statusTo)} ${from || ''} ${to || ''}`
-              );
-            } else {
-              console.log(
-                `  | ${setColor(statusFrom)} -> ${setColor(statusTo)} ${from ||
-                  ''} ${to || ''}`
-              );
+          const staged = await inquirer.prompt([
+            {
+              type: 'checkbox',
+              name: 'files',
+              prefix: '✏️ ',
+              message: texts.chooseFilesToCommit,
+              choices: () => {
+                return notDeletedFiles.map(({ to, added, statusTo }) => ({
+                  name: `${to} (${statusTo})`,
+                  value: to,
+                  checked: added
+                }));
+              }
             }
-          });
+          ]);
+
+          if (staged.files.length > 0) {
+            const undoRenameFiles = notDeletedFiles
+              .filter(f => f.statusTo === 'renamed')
+              .filter(f => !~staged.files.indexOf(f.to))
+              .forEach(async entry => {
+                await exec(`git mv ${entry.to} ${entry.from}`);
+              });
+
+            const filesToReset = notDeletedFiles
+              .map(f => (f.to && f.statusTo !== 'renamed' ? f.to : false))
+              .filter(f => !~staged.files.indexOf(f) && f);
+
+            await exec(`git reset ${filesToReset.join(' ')}`);
+            await exec(`git add ${staged.files.join(' ')}`);
+          }
+
           console.log('');
 
           // ready to commit

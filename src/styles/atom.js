@@ -1,6 +1,6 @@
-import chalk from 'chalk';
+const chalk = require('chalk');
 
-export default {
+module.exports = {
   questions: [
     {
       prefix: '-',
@@ -105,21 +105,33 @@ ${chalk.bold(chalk.underline('Atom:'))}
 - Reference issues and pull requests liberally after the first line
 - When only changing documentation, include [ci skip] in the commit description
 
-${chalk.bold(chalk.underline('Consider starting the commit message with an applicable emoji:'))}
-- 🎨  ${chalk.bold(':art:')} ${chalk.dim('when improving the format/structure of the code')}
+${chalk.bold(
+    chalk.underline(
+      'Consider starting the commit message with an applicable emoji:'
+    )
+  )}
+- 🎨  ${chalk.bold(':art:')} ${chalk.dim(
+    'when improving the format/structure of the code'
+  )}
 - 🐎  ${chalk.bold(':racehorse:')} ${chalk.dim('when improving performance')}
-- 🚱  ${chalk.bold(':non-potable_water:')} ${chalk.dim('when plugging memory leaks')}
+- 🚱  ${chalk.bold(':non-potable_water:')} ${chalk.dim(
+    'when plugging memory leaks'
+  )}
 - 📝  ${chalk.bold(':memo:')} ${chalk.dim('when writing docs')}
 - 🐧  ${chalk.bold(':penguin:')} ${chalk.dim('when fixing something on Linux')}
 - 🍎  ${chalk.bold(':apple:')} ${chalk.dim('when fixing something on macOS')}
-- 🏁  ${chalk.bold(':checkered_flag:')} ${chalk.dim('when fixing something on Windows')}
+- 🏁  ${chalk.bold(':checkered_flag:')} ${chalk.dim(
+    'when fixing something on Windows'
+  )}
 - 🐛  ${chalk.bold(':bug:')} ${chalk.dim('when fixing a bug')}
 - 🔥  ${chalk.bold(':fire:')} ${chalk.dim('when removing code or files')}
 - 💚  ${chalk.bold(':green_heart:')} ${chalk.dim('when fixing the CI build')}
 - ✅  ${chalk.bold(':white_check_mark:')} ${chalk.dim('when adding tests')}
 - 🔒  ${chalk.bold(':lock:')} ${chalk.dim('when dealing with security')}
 - ⬆️  ${chalk.bold(':arrow_up:')} ${chalk.dim('when upgrading dependencies')}
-- ⬇️  ${chalk.bold(':arrow_down:')} ${chalk.dim('when downgrading dependencies')}
+- ⬇️  ${chalk.bold(':arrow_down:')} ${chalk.dim(
+    'when downgrading dependencies'
+  )}
 - 👕  ${chalk.bold(':shirt:')} ${chalk.dim('when removing linter warnings')}
 
 `

@@ -1,12 +1,13 @@
-import atomStyle from './atom';
-import karmaStyle from './karma';
-import angularStyle from './angular';
+const atomStyle = require('./atom');
+const karmaStyle = require('./karma');
+const angularStyle = require('./angular');
 
-import utils from '../utils/index';
+const utils = require('../utils');
 
 const styles = {
   atom: utils.parseStyle(atomStyle),
   karma: utils.parseStyle(karmaStyle),
   angular: utils.parseStyle(angularStyle)
 };
-export default styles;
+
+module.exports = styles;

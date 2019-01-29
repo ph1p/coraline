@@ -1,7 +1,7 @@
-import { parseTemplate, parseStyle } from './template';
-import { parseGitStatus } from './git';
+const { parseTemplate, parseStyle } = require('./template');
+const { parseGitStatus } = require('./git');
 
-export default {
+module.exports = {
   parseStyle,
   parseTemplate,
   parseGitStatus
