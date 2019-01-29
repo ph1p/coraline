@@ -1,6 +1,6 @@
 {
   "name": "coraline",
-  "version": "1.1.6",
+  "version": "2.0.0",
   "description": "A simple cli for conventional git commit messages",
   "main": "index.js",
   "repository": {
@@ -11,19 +11,15 @@
     "cl": "./bin/coraline.js",
     "coraline": "./dist/coraline.js"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "rollup -c"
-  },
   "keywords": [
     "commit",
     "git",
-    "cli"
+    "cli",
+    "conventional"
   ],
   "author": "Philip Stapelfeldt <phil@capshake.com>",
   "license": "MIT",
   "dependencies": {
-    "@babel/polyfill": "^7.0.0",
     "boxen": "^2.0.0",
     "chalk": "^2.4.1",
     "child-process-promise": "^2.2.1",
