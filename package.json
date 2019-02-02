@@ -1,6 +1,6 @@
 {
   "name": "coraline",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "A simple cli for conventional git commit messages",
   "main": "index.js",
   "repository": {
