@@ -2,6 +2,7 @@
 module.exports = ({ version, pathToRepository, chalk }) => ({
   welcome: `  | Coraline v${version}`,
   chooseFilesToCommit: `Files you want to commit:`,
+  noFilesSelected: `Please select at least one file`,
   chooseDefaultStyle: 'Choose your default commit style:',
   areYouSure: 'Are you sure (just hit enter for YES)?',
   nowUsing: '  | Now you are using %s',

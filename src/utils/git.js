@@ -21,8 +21,10 @@ exports.parseGitStatus = status => {
   files.forEach(file => {
     if (file.length) {
       const [fl, sl] = file;
+
       const fileStatus = {
-        statusTo: fl === ' ' ? GIT_STATUS[sl] : GIT_STATUS[fl],
+        statusFrom: fl,
+        status: fl === ' ' ? GIT_STATUS[sl] : GIT_STATUS[fl],
         added: fl !== ' ',
         to: file.substring(3),
         from: null

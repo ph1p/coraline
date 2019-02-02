@@ -311,18 +311,18 @@ const startCommiting = async (flags = {}) => {
           const status = utils.parseGitStatus(gitStatusResult.stdout);
 
           const notDeletedFiles = status.filter(
-            ({ to, statusTo }) => to && statusTo !== 'deleted'
+            ({ to, status }) => to && status !== 'deleted'
           );
 
           const staged = await inquirer.prompt([
             {
               type: 'checkbox',
               name: 'files',
-              prefix: '✏️ ',
-              message: texts.chooseFilesToCommit,
+              prefix: '',
+              message: '\n' + texts.chooseFilesToCommit,
               choices: () => {
-                return notDeletedFiles.map(({ to, added, statusTo }) => ({
-                  name: `${to} (${statusTo})`,
+                return notDeletedFiles.map(({ to, added, status }) => ({
+                  name: `${to} (${status})`,
                   value: to,
                   checked: added
                 }));
@@ -332,18 +332,21 @@ const startCommiting = async (flags = {}) => {
 
           if (staged.files.length > 0) {
             const undoRenameFiles = notDeletedFiles
-              .filter(f => f.statusTo === 'renamed')
+              .filter(f => f.status === 'renamed')
               .filter(f => !~staged.files.indexOf(f.to))
               .forEach(async entry => {
                 await exec(`git mv ${entry.to} ${entry.from}`);
               });
 
             const filesToReset = notDeletedFiles
-              .map(f => (f.to && f.statusTo !== 'renamed' ? f.to : false))
+              .map(f => (f.to && f.status !== 'renamed' ? f.to : false))
               .filter(f => !~staged.files.indexOf(f) && f);
 
             await exec(`git reset ${filesToReset.join(' ')}`);
             await exec(`git add ${staged.files.join(' ')}`);
+          } else {
+            console.log('\n' + chalk.red(texts.noFilesSelected));
+            return;
           }
 
           console.log('');
@@ -361,9 +364,6 @@ const startCommiting = async (flags = {}) => {
             .prompt(questions)
             .then(async answers => {
               if (answers.confirmStatus) {
-                // add all
-                await exec('git add --all');
-
                 // commit with template
                 await exec(
                   `git commit -m "${utils.parseTemplate(template, answers)}"`
